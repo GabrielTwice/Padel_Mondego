@@ -1,0 +1,34 @@
+hora de data para timestamp;
+auto increment em tudo o que é ID
+nova variavel ID_horario na reservar 
+
+783869
+
+-- Alterar o tipo de dados do parâmetro "Hora" para timestamp na tabela "Horario"
+ALTER TABLE Horario
+ALTER COLUMN Hora TYPE timestamp without time zone;
+
+CREATE SEQUENCE horario_id_seq;
+
+ALTER TABLE Horario
+ALTER COLUMN id SET DEFAULT nextval('horario_id_seq');
+
+CREATE SEQUENCE campos_id_seq;
+
+ALTER TABLE Campos
+ALTER COLUMN ID_Campo SET DEFAULT nextval('campos_id_seq');
+
+CREATE SEQUENCE reservar_id_seq;
+
+ALTER TABLE Reservar
+ALTER COLUMN ID_Reserva SET DEFAULT nextval('reservar_id_seq');
+
+ALTER TABLE Reservar
+ADD COLUMN ID_Horario INT; -- ou outro tipo de dados apropriado, dependendo da estrutura da sua tabela Horario
+
+ALTER TABLE Reservar
+ADD CONSTRAINT fk_id_horario FOREIGN KEY (ID_Horario) REFERENCES Horario(ID);
+
+ALTER TABLE Reservar
+ADD COLUMN ID_camp INT,
+ADD CONSTRAINT fk_id_camp FOREIGN KEY (ID_camp) REFERENCES Campos(ID_Campo);
